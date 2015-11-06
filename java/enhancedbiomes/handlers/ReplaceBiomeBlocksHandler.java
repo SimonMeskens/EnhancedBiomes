@@ -4,6 +4,8 @@ import java.awt.Event;
 import java.util.ArrayList;
 import java.util.Random;
 
+import scala.actors.threadpool.Arrays;
+
 import com.google.common.eventbus.Subscribe;
 
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -39,7 +41,7 @@ public class ReplaceBiomeBlocksHandler
 	@SubscribeEvent
 	public void replaceBlocksForBiome(ReplaceBiomeBlocks e)
 	{
-        if(e.biomeArray != null && (e.chunkProvider instanceof ChunkProviderGenerate || e.chunkProvider instanceof ChunkProviderEnhancedBiomes) && e.world.provider.dimensionId == 0) {
+        if(e.biomeArray != null && (e.chunkProvider instanceof ChunkProviderGenerate || e.chunkProvider instanceof ChunkProviderEnhancedBiomes || Arrays.asList(EnhancedBiomesMod.worldTypes).contains(e.world.provider.terrainType.getWorldTypeName())) && e.world.provider.dimensionId == 0) {
         	if(this.perlin == null) this.perlin = new NoiseGeneratorPerlin(e.world.rand, 4);
     		
         	double d0 = 0.03125D;
